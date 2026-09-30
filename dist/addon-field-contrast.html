@@ -1,0 +1,72 @@
+<!-- CYP Simchat Torah - field contrast fix. Paste BELOW the main CYP Simchat Torah block. -->
+<style>
+html.cyp-st { --cyp-dim: #bdb29b; }
+html.cyp-st #cyp-form-card .form-textbox,
+html.cyp-st #cyp-form-card .form-dropdown,
+html.cyp-st #cyp-form-card .form-textarea,
+html.cyp-st #cyp-form-card input[type="email"],
+html.cyp-st #cyp-form-card input[type="tel"],
+html.cyp-st #cyp-form-card input[type="number"],
+html.cyp-st #cyp-form-card select {
+  font-size: 16px !important;
+  color: #1b1610 !important;
+  -webkit-text-fill-color: #1b1610;
+  background-color: #f6f0e2 !important;
+  border: 1px solid rgba(217, 179, 102, .55) !important;
+}
+html.cyp-st #cyp-form-card select,
+html.cyp-st #cyp-form-card .form-dropdown {
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8a6428 50%),
+    linear-gradient(135deg, #8a6428 50%, transparent 50%) !important;
+}
+html.cyp-st #cyp-form-card select option { background: #fff; color: #1b1610; }
+html.cyp-st #cyp-form-card ::placeholder { color: rgba(27, 22, 16, .5); opacity: 1; }
+html.cyp-st #cyp-form-card select:hover,
+html.cyp-st #cyp-form-card .form-textbox:hover { border-color: var(--cyp-gold) !important; }
+html.cyp-st #cyp-form-card .form-textbox:focus,
+html.cyp-st #cyp-form-card .form-dropdown:focus,
+html.cyp-st #cyp-form-card input[type="email"]:focus,
+html.cyp-st #cyp-form-card input[type="tel"]:focus,
+html.cyp-st #cyp-form-card input[type="number"]:focus,
+html.cyp-st #cyp-form-card select:focus {
+  border-color: var(--cyp-gold-hi) !important;
+  background-color: #fffdf7 !important;
+  box-shadow: 0 0 0 3px rgba(217, 179, 102, .35) !important;
+}
+html.cyp-st #cyp-form-card .form-textbox:disabled { opacity: .8; }
+html.cyp-st #cyp-form-card input:-webkit-autofill,
+html.cyp-st #cyp-form-card input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1b1610;
+  caret-color: #1b1610;
+  -webkit-box-shadow: 0 0 0 1000px #f6f0e2 inset !important;
+}
+html.cyp-st #cyp-form-card .form-sub-label { font-size: 12.5px !important; }
+</style>
+<script>
+/* Locks the field colours inline so the site's own form theme cannot repaint them. */
+(function () {
+  if (!/aid[\/=]6284529(?!\d)/i.test(location.href) && !document.getElementById('6284529')) return;
+  function lock() {
+    var card = document.getElementById('cyp-form-card');
+    if (!card) return;
+    var f = card.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]):not([type="submit"]), select, textarea');
+    for (var i = 0; i < f.length; i++) {
+      f[i].style.setProperty('background-color', '#f6f0e2', 'important');
+      f[i].style.setProperty('color', '#1b1610', 'important');
+      f[i].style.setProperty('-webkit-text-fill-color', '#1b1610', 'important');
+    }
+  }
+  function start() {
+    lock();
+    var card = document.getElementById('cyp-form-card');
+    if (!card || !('MutationObserver' in window)) return;
+    var opts = { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] };
+    var mo = new MutationObserver(function () { mo.disconnect(); lock(); mo.observe(card, opts); });
+    mo.observe(card, opts);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+  window.addEventListener('load', lock);
+})();
+</script>

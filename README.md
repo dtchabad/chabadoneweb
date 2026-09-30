@@ -38,3 +38,7 @@ All colours are variables at the top of the CSS (`--cyp-ink`, `--cyp-gold`, ...)
 - Web fonts (Cormorant Garamond, Montserrat) load from Google Fonts.
 - The PREGAME/POSTGAME tags are made by the script from any paragraph that begins with an ALL-CAPS word and a colon, e.g. `POSTGAME: ...`.
 - The form-card wrapper is found by content, not by field id, so adding or reordering fields in the form editor is fine.
+
+### Updating an already-pasted header
+
+`dist/header-snippet.html` always holds the complete, current version. If the older version is already in the header and only a small fix is needed, an add-on such as `dist/addon-field-contrast.html` can be pasted **below** the existing block instead of replacing it (the add-on is already merged into `dist/header-snippet.html`, so don't paste both).

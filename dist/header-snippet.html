@@ -18,7 +18,7 @@ html.cyp-st {
   --cyp-panel:      #14110f;
   --cyp-cream:      #f1e8d4;
   --cyp-soft:       #cdc1aa;
-  --cyp-dim:        #938874;
+  --cyp-dim:        #bdb29b;
   --cyp-gold:       #d9b366;
   --cyp-gold-hi:    #f4dc9c;
   --cyp-gold-deep:  #a97c34;
@@ -384,7 +384,7 @@ html.cyp-st #cyp-form-card .form-sub-label {
   display: block;
   margin: 6px 0 0 2px;
   font-family: var(--cyp-sans) !important;
-  font-size: 11.5px !important;
+  font-size: 12.5px !important;
   font-weight: 400;
   letter-spacing: .03em;
   text-transform: none;
@@ -427,11 +427,12 @@ html.cyp-st #cyp-form-card select {
   margin: 0 !important;
   padding: 0 15px !important;
   font-family: var(--cyp-sans) !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.2 !important;
-  color: var(--cyp-cream) !important;
-  background-color: rgba(255, 255, 255, .04) !important;
-  border: 1px solid var(--cyp-line) !important;
+  color: #1b1610 !important;
+  -webkit-text-fill-color: #1b1610;
+  background-color: #f6f0e2 !important;
+  border: 1px solid rgba(217, 179, 102, .55) !important;
   border-radius: 10px !important;
   box-shadow: none !important;
   outline: none;
@@ -444,17 +445,17 @@ html.cyp-st #cyp-form-card select,
 html.cyp-st #cyp-form-card .form-dropdown {
   padding-right: 38px !important;
   background-image:
-    linear-gradient(45deg, transparent 50%, var(--cyp-gold) 50%),
-    linear-gradient(135deg, var(--cyp-gold) 50%, transparent 50%) !important;
+    linear-gradient(45deg, transparent 50%, #8a6428 50%),
+    linear-gradient(135deg, #8a6428 50%, transparent 50%) !important;
   background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50% !important;
   background-size: 5px 5px, 5px 5px !important;
   background-repeat: no-repeat !important;
 }
-html.cyp-st #cyp-form-card select option { background: #1a1613; color: var(--cyp-cream); }
-html.cyp-st #cyp-form-card ::placeholder { color: rgba(147, 136, 116, .8); opacity: 1; }
+html.cyp-st #cyp-form-card select option { background: #fff; color: #1b1610; }
+html.cyp-st #cyp-form-card ::placeholder { color: rgba(27, 22, 16, .5); opacity: 1; }
 
 html.cyp-st #cyp-form-card .form-textbox:hover,
-html.cyp-st #cyp-form-card select:hover { border-color: rgba(217, 179, 102, .45) !important; }
+html.cyp-st #cyp-form-card select:hover { border-color: var(--cyp-gold) !important; }
 html.cyp-st #cyp-form-card .form-textbox:focus,
 html.cyp-st #cyp-form-card .form-dropdown:focus,
 html.cyp-st #cyp-form-card input[type="email"]:focus,
@@ -462,18 +463,17 @@ html.cyp-st #cyp-form-card input[type="tel"]:focus,
 html.cyp-st #cyp-form-card input[type="number"]:focus,
 html.cyp-st #cyp-form-card select:focus {
   border-color: var(--cyp-gold-hi) !important;
-  background-color: rgba(255, 255, 255, .06) !important;
-  box-shadow: 0 0 0 3px rgba(217, 179, 102, .18) !important;
+  background-color: #fffdf7 !important;
+  box-shadow: 0 0 0 3px rgba(217, 179, 102, .35) !important;
 }
-html.cyp-st #cyp-form-card .form-textbox:disabled { opacity: .45; cursor: not-allowed; }
+html.cyp-st #cyp-form-card .form-textbox:disabled { opacity: .8; cursor: not-allowed; }
 
 /* browser autofill would otherwise flash white */
 html.cyp-st #cyp-form-card input:-webkit-autofill,
 html.cyp-st #cyp-form-card input:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--cyp-cream);
-  caret-color: var(--cyp-cream);
-  -webkit-box-shadow: 0 0 0 1000px #1c1815 inset !important;
-  border: 1px solid var(--cyp-line) !important;
+  -webkit-text-fill-color: #1b1610;
+  caret-color: #1b1610;
+  -webkit-box-shadow: 0 0 0 1000px #f6f0e2 inset !important;
 }
 
 /* address + payment tables */
@@ -692,6 +692,8 @@ html.cyp-st .center.small img { opacity: .55; filter: invert(1); }
    2. wraps the input rows in one card (#cyp-form-card)
    3. turns "PREGAME:" / "POSTGAME:" openers into small tags
    4. fades each block of copy in as it scrolls into view
+   5. locks the field colours (off-white box, dark text) inline, because the
+      site's own form theme can otherwise repaint them
 
    Content is still edited in Chabadone as usual - nothing here hard-codes
    any wording. */
@@ -745,6 +747,24 @@ html.cyp-st .center.small img { opacity: .55; filter: invert(1); }
       var next = node.nextElementSibling;
       card.appendChild(node);
       node = next;
+    }
+  }
+
+  /* The site's form theme / scripts can repaint input backgrounds and text
+     with rules a stylesheet cannot out-rank. Inline !important always wins,
+     so the two colours that decide legibility are set here as well. Borders
+     stay in the stylesheet so focus rings keep working. */
+  function lockFieldColors() {
+    var card = document.getElementById('cyp-form-card');
+    if (!card) return;
+    var fields = card.querySelectorAll(
+      'input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]):not([type="submit"]), select, textarea'
+    );
+    for (var i = 0; i < fields.length; i++) {
+      var s = fields[i].style;
+      s.setProperty('background-color', '#f6f0e2', 'important');
+      s.setProperty('color', '#1b1610', 'important');
+      s.setProperty('-webkit-text-fill-color', '#1b1610', 'important');
     }
   }
 
@@ -809,6 +829,19 @@ html.cyp-st .center.small img { opacity: .55; filter: invert(1); }
     wrapFormCard();
     tagNotes();
     initReveal();
+    lockFieldColors();
+    window.addEventListener('load', lockFieldColors);
+
+    /* payment / "Other" fields appear later - re-apply when the card changes */
+    var card = document.getElementById('cyp-form-card');
+    if (card && 'MutationObserver' in window) {
+      var mo = new MutationObserver(function () {
+        mo.disconnect();
+        lockFieldColors();
+        mo.observe(card, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+      });
+      mo.observe(card, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+    }
   }
 
   /* URL match lets the theme switch on before first paint */

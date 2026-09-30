@@ -5,6 +5,8 @@
    2. wraps the input rows in one card (#cyp-form-card)
    3. turns "PREGAME:" / "POSTGAME:" openers into small tags
    4. fades each block of copy in as it scrolls into view
+   5. locks the field colours (off-white box, dark text) inline, because the
+      site's own form theme can otherwise repaint them
 
    Content is still edited in Chabadone as usual - nothing here hard-codes
    any wording. */
@@ -58,6 +60,24 @@
       var next = node.nextElementSibling;
       card.appendChild(node);
       node = next;
+    }
+  }
+
+  /* The site's form theme / scripts can repaint input backgrounds and text
+     with rules a stylesheet cannot out-rank. Inline !important always wins,
+     so the two colours that decide legibility are set here as well. Borders
+     stay in the stylesheet so focus rings keep working. */
+  function lockFieldColors() {
+    var card = document.getElementById('cyp-form-card');
+    if (!card) return;
+    var fields = card.querySelectorAll(
+      'input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]):not([type="submit"]), select, textarea'
+    );
+    for (var i = 0; i < fields.length; i++) {
+      var s = fields[i].style;
+      s.setProperty('background-color', '#f6f0e2', 'important');
+      s.setProperty('color', '#1b1610', 'important');
+      s.setProperty('-webkit-text-fill-color', '#1b1610', 'important');
     }
   }
 
@@ -122,6 +142,19 @@
     wrapFormCard();
     tagNotes();
     initReveal();
+    lockFieldColors();
+    window.addEventListener('load', lockFieldColors);
+
+    /* payment / "Other" fields appear later - re-apply when the card changes */
+    var card = document.getElementById('cyp-form-card');
+    if (card && 'MutationObserver' in window) {
+      var mo = new MutationObserver(function () {
+        mo.disconnect();
+        lockFieldColors();
+        mo.observe(card, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+      });
+      mo.observe(card, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+    }
   }
 
   /* URL match lets the theme switch on before first paint */
