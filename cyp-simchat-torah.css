@@ -1,0 +1,709 @@
+/* ==========================================================================
+   CYP Simchat Torah  -  Chabadone article 6284529
+   --------------------------------------------------------------------------
+   Every rule is scoped to  html.cyp-st  , a class that cyp-simchat-torah.js
+   adds ONLY on article 6284529. Loaded on any other page this file does
+   nothing, so it is safe to paste into (or link from) the site-wide header.
+
+   Palette is sampled from the banner artwork: near-black with a gold that
+   runs from bright champagne to deep bronze.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;600&display=swap');
+
+html.cyp-st {
+  --cyp-ink:        #0b0908;   /* page + banner background */
+  --cyp-panel:      #14110f;
+  --cyp-cream:      #f1e8d4;
+  --cyp-soft:       #cdc1aa;
+  --cyp-dim:        #938874;
+  --cyp-gold:       #d9b366;
+  --cyp-gold-hi:    #f4dc9c;
+  --cyp-gold-deep:  #a97c34;
+  --cyp-line:       rgba(217, 179, 102, .24);
+  --cyp-line-soft:  rgba(217, 179, 102, .12);
+  --cyp-warn:       #e58b6a;
+
+  --cyp-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --cyp-sans:  'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --cyp-gold-grad: linear-gradient(180deg, #f7e2a6 0%, #d8ad54 55%, #a87a32 100%);
+}
+
+/* --------------------------------------------------------------------------
+   MOTION
+   ------------------------------------------------------------------------ */
+@keyframes cyp-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes cyp-banner-in {
+  from { opacity: 0; transform: scale(1.025); filter: blur(6px); }
+  to   { opacity: 1; transform: none;         filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.cyp-st .cyp-reveal,
+  html.cyp-st .article-header::before,
+  html.cyp-st #cyp-form-card,
+  html.cyp-st #formContainer .form-image {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PAGE BACKGROUND  -  same tone as the banner, so the artwork sits in the
+   page instead of on it
+   ------------------------------------------------------------------------ */
+html.cyp-st,
+html.cyp-st body {
+  background:
+    radial-gradient(90% 420px at 50% 0%, rgba(217, 179, 102, .07), transparent 70%),
+    var(--cyp-ink) !important;
+  background-repeat: no-repeat, no-repeat !important;
+}
+html.cyp-st #ContentBody {
+  background: transparent !important;
+  padding: 0 20px 24px !important;
+  color: var(--cyp-soft);
+}
+html.cyp-st #MoreInSection { display: none !important; }
+
+/* the CYP theme caps its content wrapper at 945px - open it up so the
+   1000px column (plus its side padding) actually fits */
+html.cyp-st .body_wrapper {
+  width: min(1060px, 100%) !important;
+  max-width: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER  -  the banner already carries the title, so the H1 stays in the
+   page for screen readers / SEO but is visually hidden; a small eyebrow
+   line takes its place
+   ------------------------------------------------------------------------ */
+html.cyp-st .article-header {
+  position: relative;
+  min-height: 0 !important;
+  padding: 64px 24px 26px !important;
+  background: none !important;
+  text-align: center;
+}
+html.cyp-st .article-header::before {
+  content: "Downtown Chabad & CYP Cleveland Presents";
+  display: block;
+  font-family: var(--cyp-sans);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--cyp-gold);
+  animation: cyp-fade-up 1s ease .1s both;
+}
+html.cyp-st .article-header::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 16px auto 0;
+  background: linear-gradient(90deg, transparent, var(--cyp-gold), transparent);
+  animation: cyp-fade-up 1s ease .25s both;
+}
+html.cyp-st .article-header__title {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px !important; padding: 0 !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   LAYOUT  -  1000px column (the banner's native width; was 750)
+   ------------------------------------------------------------------------ */
+html.cyp-st #formContainer {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  font-family: var(--cyp-sans);
+}
+html.cyp-st #formContainer .form-all,
+html.cyp-st #formContainer ul.form-section {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+html.cyp-st #formContainer .form-all { color: var(--cyp-soft); }
+
+/* --------------------------------------------------------------------------
+   BANNER
+   ------------------------------------------------------------------------ */
+html.cyp-st #formContainer li.form-line:has(> div > div > img.form-image),
+html.cyp-st #formContainer li.form-line:has(img.form-image) {
+  padding: 0 !important;
+  margin: 0 0 34px !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+html.cyp-st #formContainer .form-image {
+  display: block;
+  width: 100% !important;
+  max-width: 1000px;
+  height: auto !important;
+  margin: 0 auto;
+  animation: cyp-banner-in 1.5s cubic-bezier(.16, .8, .3, 1) .15s both;
+  /* melt the bottom edge into the page */
+  -webkit-mask-image: linear-gradient(to bottom, #000 93%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 93%, transparent 100%);
+}
+
+/* --------------------------------------------------------------------------
+   INTRO COPY
+   ------------------------------------------------------------------------ */
+html.cyp-st #formContainer li.form-line:has(> div > .form-html),
+html.cyp-st #formContainer li.form-line:has(> div > div.form-html) {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+html.cyp-st .form-html {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+html.cyp-st .co_body .content .form-all .form-html p,
+html.cyp-st .form-html p {
+  margin: 0 0 22px !important;
+  font-family: var(--cyp-sans) !important;
+  font-size: 16px !important;
+  font-weight: 400;
+  line-height: 1.8 !important;
+  letter-spacing: .01em;
+  color: var(--cyp-soft) !important;
+  text-align: center !important;
+}
+/* the editor wraps text in sized / coloured spans - neutralise them so the
+   paragraph rules above decide */
+html.cyp-st .form-html p span {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+}
+html.cyp-st .form-html strong { font-weight: 600; color: var(--cyp-cream); }
+
+/* opening line: large italic serif */
+html.cyp-st .form-html > p:first-child,
+html.cyp-st .form-html > p:first-child span {
+  font-family: var(--cyp-serif) !important;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(27px, 4.2vw, 36px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0;
+  color: var(--cyp-cream) !important;
+}
+html.cyp-st .form-html > p:first-child { margin-bottom: 8px !important; }
+
+/* second line (age / open bar) sits under it */
+html.cyp-st .form-html > p:nth-child(2) { margin-bottom: 40px !important; }
+html.cyp-st .form-html > p:nth-child(2)::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 34px auto 0;
+  background: linear-gradient(90deg, transparent, var(--cyp-gold), transparent);
+}
+
+/* links */
+html.cyp-st .form-html a {
+  color: var(--cyp-gold-hi) !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(244, 220, 156, .38);
+  transition: border-color .3s ease, color .3s ease;
+}
+html.cyp-st .form-html a:hover {
+  color: #fff !important;
+  border-bottom-color: var(--cyp-gold-hi);
+}
+
+/* date / time / venue - the editor colours these #d35400 (orange). They
+   become the champagne-gold serif accent */
+html.cyp-st .form-html span[style*="d35400"],
+html.cyp-st .form-html span[style*="D35400"],
+html.cyp-st .form-html span[style*="d35400"] * {
+  font-family: var(--cyp-serif) !important;
+  font-size: clamp(22px, 3.3vw, 28px) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  letter-spacing: .01em;
+  color: var(--cyp-gold-hi) !important;
+}
+html.cyp-st .form-html p:has(span[style*="d35400"]) {
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
+}
+/* venue line is the second orange paragraph - a touch quieter and closes
+   the block */
+html.cyp-st .form-html p:has(span[style*="d35400"]) + p:has(span[style*="d35400"]) {
+  margin-bottom: 44px !important;
+}
+html.cyp-st .form-html p:has(span[style*="d35400"]) + p:has(span[style*="d35400"]) span,
+html.cyp-st .form-html p:has(span[style*="d35400"]) + p:has(span[style*="d35400"]) strong {
+  font-size: clamp(19px, 2.8vw, 23px) !important;
+  font-weight: 500 !important;
+  color: var(--cyp-gold) !important;
+}
+
+/* PREGAME / POSTGAME notes  (cyp-simchat-torah.js turns "PREGAME:" into a
+   small tag and marks the paragraph .cyp-note) */
+html.cyp-st .form-html p.cyp-note {
+  max-width: 560px;
+  margin: 0 auto 18px !important;
+  padding: 22px 28px 24px;
+  border: 1px solid var(--cyp-line-soft);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(217, 179, 102, .045), rgba(217, 179, 102, .012));
+  font-size: 15.5px !important;
+}
+html.cyp-st .form-html .cyp-tag {
+  display: block;
+  margin-bottom: 9px;
+  font-family: var(--cyp-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--cyp-gold);
+}
+html.cyp-st .form-html p.cyp-note + p:not(.cyp-note) { margin-top: 44px !important; }
+
+/* closing italic (Chai Society thank-you) */
+html.cyp-st .form-html p:has(> em) {
+  margin: 34px auto 34px !important;
+  padding-top: 30px;
+  border-top: 1px solid var(--cyp-line-soft);
+}
+html.cyp-st .form-html em,
+html.cyp-st .form-html em span {
+  font-family: var(--cyp-serif) !important;
+  font-style: italic !important;
+  font-size: 20px !important;
+  line-height: 1.45 !important;
+  color: var(--cyp-soft) !important;
+}
+
+/* "registration closed" notice, if it is ever un-hidden in the editor */
+html.cyp-st .form-html p:has(> span > strong) { color: var(--cyp-warn) !important; }
+
+/* --------------------------------------------------------------------------
+   SCROLL REVEAL  -  paragraphs and the form card rise and sharpen into view
+   ------------------------------------------------------------------------ */
+html.cyp-st .cyp-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(4px);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(.16, .8, .3, 1),
+    filter 1s ease;
+  will-change: opacity, transform;
+}
+html.cyp-st .cyp-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* --------------------------------------------------------------------------
+   FORM CARD  -  cyp-simchat-torah.js gathers the input rows into
+   #cyp-form-card
+   ------------------------------------------------------------------------ */
+html.cyp-st #cyp-form-card {
+  position: relative;
+  max-width: 660px;
+  margin: 8px auto 0;
+  padding: 40px 40px 34px;
+  background: linear-gradient(180deg, #171310 0%, #100d0b 100%);
+  border: 1px solid var(--cyp-line);
+  border-radius: 18px;
+  box-shadow:
+    0 34px 70px rgba(0, 0, 0, .55),
+    inset 0 1px 0 rgba(255, 255, 255, .04);
+}
+html.cyp-st #cyp-form-card::before {           /* gold hairline across the top */
+  content: "";
+  position: absolute;
+  top: -1px; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyp-gold-hi), transparent);
+}
+
+/* rows */
+html.cyp-st #cyp-form-card .form-line {
+  margin: 0 !important;
+  padding: 0 0 22px !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+html.cyp-st #cyp-form-card .form-line:has(.form-buttons-wrapper) { padding: 14px 0 0 !important; }
+html.cyp-st #cyp-form-card .form-line.form-line-error {
+  padding: 12px 14px 22px !important;
+  margin-bottom: 4px !important;
+  background: rgba(229, 139, 106, .07) !important;
+  border-radius: 12px !important;
+}
+
+/* labels sit above their fields */
+html.cyp-st #cyp-form-card .form-label-left,
+html.cyp-st #cyp-form-card .form-label-right,
+html.cyp-st #cyp-form-card .form-label {
+  float: none !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 9px !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+html.cyp-st #cyp-form-card .form-input,
+html.cyp-st #cyp-form-card .form-input-wide {
+  float: none !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html.cyp-st #cyp-form-card .form-label-left label:first-child,
+html.cyp-st #cyp-form-card .form-label label:first-child {
+  font-family: var(--cyp-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--cyp-gold) !important;
+}
+html.cyp-st #cyp-form-card .label-message {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--cyp-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--cyp-dim) !important;
+}
+html.cyp-st #cyp-form-card .form-required {
+  margin-left: 4px;
+  color: var(--cyp-warn);
+}
+html.cyp-st #cyp-form-card .form-sub-label {
+  display: block;
+  margin: 6px 0 0 2px;
+  font-family: var(--cyp-sans) !important;
+  font-size: 11.5px !important;
+  font-weight: 400;
+  letter-spacing: .03em;
+  text-transform: none;
+  color: var(--cyp-dim) !important;
+}
+
+/* side-by-side sub fields (first / last name) wrap on narrow screens */
+html.cyp-st #cyp-form-card .form-input {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+html.cyp-st #cyp-form-card .form-input > .form-sub-label-container {
+  flex: 1 1 210px;
+  margin: 0 !important;
+}
+html.cyp-st #cyp-form-card .form-sub-label-container {
+  display: block;
+  margin: 0 !important;
+}
+/* single controls, phone wrapper and address table take the full row */
+html.cyp-st #cyp-form-card .form-input > div,
+html.cyp-st #cyp-form-card .form-input > table,
+html.cyp-st #cyp-form-card .form-input > input,
+html.cyp-st #cyp-form-card .form-input > select {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+/* text inputs, selects, number */
+html.cyp-st #cyp-form-card .form-textbox,
+html.cyp-st #cyp-form-card .form-dropdown,
+html.cyp-st #cyp-form-card .form-textarea,
+html.cyp-st #cyp-form-card input[type="email"],
+html.cyp-st #cyp-form-card input[type="tel"],
+html.cyp-st #cyp-form-card input[type="number"],
+html.cyp-st #cyp-form-card select {
+  width: 100% !important;
+  height: 46px;
+  margin: 0 !important;
+  padding: 0 15px !important;
+  font-family: var(--cyp-sans) !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  color: var(--cyp-cream) !important;
+  background-color: rgba(255, 255, 255, .04) !important;
+  border: 1px solid var(--cyp-line) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  outline: none;
+  -webkit-appearance: none;
+          appearance: none;
+  transition: border-color .25s ease, box-shadow .25s ease, background-color .25s ease;
+}
+html.cyp-st #cyp-form-card .form-textarea { height: auto; padding: 12px 15px !important; }
+html.cyp-st #cyp-form-card select,
+html.cyp-st #cyp-form-card .form-dropdown {
+  padding-right: 38px !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--cyp-gold) 50%),
+    linear-gradient(135deg, var(--cyp-gold) 50%, transparent 50%) !important;
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50% !important;
+  background-size: 5px 5px, 5px 5px !important;
+  background-repeat: no-repeat !important;
+}
+html.cyp-st #cyp-form-card select option { background: #1a1613; color: var(--cyp-cream); }
+html.cyp-st #cyp-form-card ::placeholder { color: rgba(147, 136, 116, .8); opacity: 1; }
+
+html.cyp-st #cyp-form-card .form-textbox:hover,
+html.cyp-st #cyp-form-card select:hover { border-color: rgba(217, 179, 102, .45) !important; }
+html.cyp-st #cyp-form-card .form-textbox:focus,
+html.cyp-st #cyp-form-card .form-dropdown:focus,
+html.cyp-st #cyp-form-card input[type="email"]:focus,
+html.cyp-st #cyp-form-card input[type="tel"]:focus,
+html.cyp-st #cyp-form-card input[type="number"]:focus,
+html.cyp-st #cyp-form-card select:focus {
+  border-color: var(--cyp-gold-hi) !important;
+  background-color: rgba(255, 255, 255, .06) !important;
+  box-shadow: 0 0 0 3px rgba(217, 179, 102, .18) !important;
+}
+html.cyp-st #cyp-form-card .form-textbox:disabled { opacity: .45; cursor: not-allowed; }
+
+/* browser autofill would otherwise flash white */
+html.cyp-st #cyp-form-card input:-webkit-autofill,
+html.cyp-st #cyp-form-card input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--cyp-cream);
+  caret-color: var(--cyp-cream);
+  -webkit-box-shadow: 0 0 0 1000px #1c1815 inset !important;
+  border: 1px solid var(--cyp-line) !important;
+}
+
+/* address + payment tables */
+html.cyp-st #cyp-form-card table { width: 100%; border-collapse: separate; border-spacing: 0; }
+html.cyp-st #cyp-form-card table table { width: 100%; }
+html.cyp-st #cyp-form-card .form-address-table {
+  width: 100% !important;
+  max-width: none !important;
+}
+html.cyp-st #cyp-form-card .form-address-table td + td {
+  padding-left: 0;
+  text-align: left;
+}
+html.cyp-st #cyp-form-card .form-address-table td > .form-sub-label-container,
+html.cyp-st #cyp-form-card .form-address-table input,
+html.cyp-st #cyp-form-card .form-address-table select { width: 100% !important; max-width: none !important; }
+html.cyp-st #cyp-form-card td,
+html.cyp-st #cyp-form-card th { padding: 0 12px 12px 0; vertical-align: top; }
+html.cyp-st #cyp-form-card td:last-child,
+html.cyp-st #cyp-form-card th:last-child { padding-right: 0; }
+html.cyp-st #cyp-form-card th {
+  padding-bottom: 12px;
+  text-align: left;
+  font-family: var(--cyp-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--cyp-gold);
+}
+
+/* radios + checkboxes become tidy selectable rows */
+html.cyp-st #cyp-form-card .form-multiple-column,
+html.cyp-st #cyp-form-card .form-single-column {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+html.cyp-st #cyp-form-card .form-single-column { flex-direction: column; flex-wrap: nowrap; }
+html.cyp-st #cyp-form-card .form-multiple-column > .clearfix,
+html.cyp-st #cyp-form-card .form-single-column > .clearfix { display: none; }
+
+html.cyp-st #cyp-form-card .form-radio-item,
+html.cyp-st #cyp-form-card .form-checkbox-item {
+  display: flex !important;
+  align-items: center;
+  float: none !important;
+  clear: none !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 12px 16px !important;
+  color: var(--cyp-cream) !important;
+  background: rgba(255, 255, 255, .03) !important;
+  border: 1px solid var(--cyp-line) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+html.cyp-st #cyp-form-card .form-multiple-column .form-radio-item { flex: 1 1 calc(50% - 5px); min-width: 130px; }
+html.cyp-st #cyp-form-card .form-single-column .form-checkbox-item { width: 100%; }
+html.cyp-st #cyp-form-card .form-radio-item:hover,
+html.cyp-st #cyp-form-card .form-checkbox-item:hover { border-color: rgba(217, 179, 102, .5) !important; }
+html.cyp-st #cyp-form-card .form-radio-item:has(input:checked),
+html.cyp-st #cyp-form-card .form-checkbox-item:has(input:checked) {
+  border-color: var(--cyp-gold-hi) !important;
+  background: rgba(217, 179, 102, .11) !important;
+  box-shadow: 0 0 0 1px rgba(244, 220, 156, .25) !important;
+}
+html.cyp-st #cyp-form-card .form-radio-item:has(input:focus-visible),
+html.cyp-st #cyp-form-card .form-checkbox-item:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(217, 179, 102, .3) !important;
+}
+html.cyp-st #cyp-form-card .form-radio,
+html.cyp-st #cyp-form-card .form-checkbox {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  margin: 0 12px 0 0 !important;
+  accent-color: var(--cyp-gold);
+  cursor: pointer;
+}
+html.cyp-st #cyp-form-card .form-radio {
+  -webkit-appearance: none;
+          appearance: none;
+  border: 1px solid rgba(217, 179, 102, .6);
+  border-radius: 50%;
+  background: transparent;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+html.cyp-st #cyp-form-card .form-radio:checked {
+  border-color: var(--cyp-gold-hi);
+  background: radial-gradient(circle, var(--cyp-gold-hi) 0 38%, transparent 42%);
+}
+/* phone field carries an empty (&nbsp;) sub-label that only adds a gap */
+html.cyp-st #cyp-form-card .dir_ltr .form-sub-label { display: none; }
+html.cyp-st #cyp-form-card .form-checkbox {
+  -webkit-appearance: none;
+          appearance: none;
+  border: 1px solid rgba(217, 179, 102, .6);
+  border-radius: 5px;
+  background: transparent center / 11px no-repeat;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+html.cyp-st #cyp-form-card .form-checkbox:checked {
+  background-color: var(--cyp-gold);
+  border-color: var(--cyp-gold-hi);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.4l2.5 2.5L10 3.2' fill='none' stroke='%231a1208' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+html.cyp-st #cyp-form-card .form-radio-item label,
+html.cyp-st #cyp-form-card .form-checkbox-item label {
+  flex: 1;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--cyp-sans) !important;
+  font-size: 14.5px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-transform: none;
+  color: var(--cyp-cream) !important;
+  cursor: pointer;
+}
+html.cyp-st #cyp-form-card .form-radio-item label span,
+html.cyp-st #cyp-form-card .form-checkbox-item label span {
+  font-size: inherit !important;
+  color: inherit !important;
+}
+/* "Other" amount box lives inside its radio row - keep it compact */
+html.cyp-st #cyp-form-card .form-radio-item .form-radio-other-input { height: 34px; }
+html.cyp-st #cyp-form-card .form-radio-item > span { flex: 1; }
+html.cyp-st #cyp-form-card .form-radio-item br { display: none; }
+
+/* running total */
+html.cyp-st #cyp-form-card #total_amount {
+  font-family: var(--cyp-serif);
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--cyp-gold-hi);
+}
+html.cyp-st #cyp-form-card .cc-icons { margin: 4px 0 12px; }
+
+/* submit */
+html.cyp-st #cyp-form-card .form-buttons-wrapper { text-align: center !important; text-indent: 0 !important; }
+html.cyp-st #cyp-form-card .form-submit-button {
+  margin: 4px 0 0 !important;
+  padding: 17px 60px !important;
+  font-family: var(--cyp-sans) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: #1a1208 !important;
+  text-shadow: none !important;
+  background: var(--cyp-gold-grad) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 10px 28px rgba(217, 179, 102, .2) !important;
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+}
+html.cyp-st #cyp-form-card .form-submit-button:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.08);
+  box-shadow: 0 16px 40px rgba(217, 179, 102, .34) !important;
+}
+html.cyp-st #cyp-form-card .form-submit-button:active { transform: translateY(-1px); }
+html.cyp-st #cyp-form-card .form-submit-button:focus-visible {
+  outline: 2px solid var(--cyp-gold-hi);
+  outline-offset: 3px;
+}
+
+/* validation messages */
+html.cyp-st #cyp-form-card .form-error-message {
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-family: var(--cyp-sans);
+  font-size: 12.5px;
+  color: #fff;
+  background: #b5533a;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+/* the "TLS encryption" line under the form */
+html.cyp-st #co_body_container .center.small,
+html.cyp-st .content-footer,
+html.cyp-st .center.small {
+  color: var(--cyp-dim) !important;
+  font-family: var(--cyp-sans);
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+html.cyp-st .center.small img { opacity: .55; filter: invert(1); }
+
+/* --------------------------------------------------------------------------
+   SMALL SCREENS
+   ------------------------------------------------------------------------ */
+@media (max-width: 640px) {
+  html.cyp-st #ContentBody { padding: 0 14px 20px !important; }
+  html.cyp-st .article-header { padding: 48px 16px 20px !important; }
+  html.cyp-st .article-header::before { font-size: .62rem; letter-spacing: .26em; }
+  html.cyp-st #formContainer li.form-line:has(img.form-image) { margin-bottom: 26px !important; }
+  html.cyp-st #cyp-form-card { padding: 28px 20px 24px; border-radius: 14px; }
+  html.cyp-st .form-html p.cyp-note { padding: 18px 18px 20px; }
+  html.cyp-st #cyp-form-card .form-multiple-column .form-radio-item { flex-basis: 100%; }
+  html.cyp-st #cyp-form-card .form-submit-button { width: 100%; padding: 16px 20px !important; }
+  /* address table collapses to one column */
+  html.cyp-st #cyp-form-card .form-address-table td { display: block; width: 100% !important; padding-right: 0; }
+}
