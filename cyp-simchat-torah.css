@@ -33,10 +33,6 @@ html.cyp-st {
 /* --------------------------------------------------------------------------
    MOTION
    ------------------------------------------------------------------------ */
-@keyframes cyp-fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: none; }
-}
 @keyframes cyp-banner-in {
   from { opacity: 0; transform: scale(1.025); filter: blur(6px); }
   to   { opacity: 1; transform: none;         filter: none; }
@@ -44,7 +40,6 @@ html.cyp-st {
 
 @media (prefers-reduced-motion: reduce) {
   html.cyp-st .cyp-reveal,
-  html.cyp-st .article-header::before,
   html.cyp-st #cyp-form-card,
   html.cyp-st #formContainer .form-image {
     animation: none !important;
@@ -82,35 +77,14 @@ html.cyp-st .body_wrapper {
 
 /* --------------------------------------------------------------------------
    HEADER  -  the banner already carries the title, so the H1 stays in the
-   page for screen readers / SEO but is visually hidden; a small eyebrow
-   line takes its place
+   page for screen readers / SEO but is visually hidden
    ------------------------------------------------------------------------ */
 html.cyp-st .article-header {
   position: relative;
   min-height: 0 !important;
-  padding: 64px 24px 26px !important;
+  padding: 32px 24px 0 !important;
   background: none !important;
   text-align: center;
-}
-html.cyp-st .article-header::before {
-  content: "Downtown Chabad & CYP Cleveland Presents";
-  display: block;
-  font-family: var(--cyp-sans);
-  font-size: .7rem;
-  font-weight: 500;
-  letter-spacing: .34em;
-  text-transform: uppercase;
-  color: var(--cyp-gold);
-  animation: cyp-fade-up 1s ease .1s both;
-}
-html.cyp-st .article-header::after {
-  content: "";
-  display: block;
-  width: 56px;
-  height: 1px;
-  margin: 16px auto 0;
-  background: linear-gradient(90deg, transparent, var(--cyp-gold), transparent);
-  animation: cyp-fade-up 1s ease .25s both;
 }
 html.cyp-st .article-header__title {
   position: absolute !important;
@@ -264,6 +238,7 @@ html.cyp-st .form-html p:has(span[style*="d35400"]) + p:has(span[style*="d35400"
 
 /* PREGAME / POSTGAME notes  (cyp-simchat-torah.js turns "PREGAME:" into a
    small tag and marks the paragraph .cyp-note) */
+html.cyp-st .co_body .content .form-all .form-html p.cyp-note,
 html.cyp-st .form-html p.cyp-note {
   max-width: 560px;
   margin: 0 auto 18px !important;
@@ -697,8 +672,7 @@ html.cyp-st .center.small img { opacity: .55; filter: invert(1); }
    ------------------------------------------------------------------------ */
 @media (max-width: 640px) {
   html.cyp-st #ContentBody { padding: 0 14px 20px !important; }
-  html.cyp-st .article-header { padding: 48px 16px 20px !important; }
-  html.cyp-st .article-header::before { font-size: .62rem; letter-spacing: .26em; }
+  html.cyp-st .article-header { padding: 20px 16px 0 !important; }
   html.cyp-st #formContainer li.form-line:has(img.form-image) { margin-bottom: 26px !important; }
   html.cyp-st #cyp-form-card { padding: 28px 20px 24px; border-radius: 14px; }
   html.cyp-st .form-html p.cyp-note { padding: 18px 18px 20px; }
