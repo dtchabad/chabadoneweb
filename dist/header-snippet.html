@@ -490,6 +490,17 @@ html.cyp-st #cyp-form-card .form-address-table td + td {
 html.cyp-st #cyp-form-card .form-address-table td > .form-sub-label-container,
 html.cyp-st #cyp-form-card .form-address-table input,
 html.cyp-st #cyp-form-card .form-address-table select { width: 100% !important; max-width: none !important; }
+/* address: street on its own line, then City | State | Zip side by side.
+   (The widget builds it as stacked table rows, so the body becomes a grid.
+   Rows the widget hides inline stay hidden.) */
+html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 12px;
+}
+html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody > tr:not([style*="none"]) { display: contents; }
+html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td { padding: 0 0 12px; width: auto !important; }
+html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td[colspan] { grid-column: 1 / -1; }
 html.cyp-st #cyp-form-card td,
 html.cyp-st #cyp-form-card th { padding: 0 12px 12px 0; vertical-align: top; }
 html.cyp-st #cyp-form-card td:last-child,
@@ -680,8 +691,10 @@ html.cyp-st .center.small img { opacity: .55; filter: invert(1); }
   html.cyp-st .form-html p.cyp-note { padding: 18px 18px 20px; }
   html.cyp-st #cyp-form-card .form-multiple-column .form-radio-item { flex-basis: 100%; }
   html.cyp-st #cyp-form-card .form-submit-button { width: 100%; padding: 16px 20px !important; }
-  /* address table collapses to one column */
-  html.cyp-st #cyp-form-card .form-address-table td { display: block; width: 100% !important; padding-right: 0; }
+  /* address: City on its own line, State | Zip beneath it */
+  html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td:has(.form-address-city) { grid-column: 1 / -1; }
+  html.cyp-st #cyp-form-card .form-address-table:not(:has(.form-address-city)) td { display: block; width: 100% !important; padding-right: 0; }
 }
 </style>
 <script>
