@@ -1,15 +1,15 @@
-<!-- CYP Simchat Torah - City / State / Zip on one line. Paste BELOW the main block (and below any other CYP add-on). -->
+<!-- CYP Simchat Torah - City / State / Zip on one line (v2). Paste BELOW the main block and any other CYP add-ons. -->
 <style>
 html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody {
-  display: grid;
+  display: grid !important;
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: 0 12px;
 }
-html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody > tr:not([style*="none"]) { display: contents; }
-html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td { padding: 0 0 12px; width: auto !important; }
+html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody > tr:not([style*="none"]) { display: contents !important; }
+html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td:not([style*="none"]) { display: block; padding: 0 0 12px !important; width: auto !important; max-width: none !important; }
 html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td[colspan] { grid-column: 1 / -1; }
 @media (max-width: 640px) {
-  html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) > tbody { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
   html.cyp-st #cyp-form-card .form-address-table:has(.form-address-city) td:has(.form-address-city) { grid-column: 1 / -1; }
 }
 </style>
